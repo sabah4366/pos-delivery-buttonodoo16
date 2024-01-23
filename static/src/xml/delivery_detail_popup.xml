@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="MyPopup" owl="1">
+        <div class="popup popup-confirm">
+            <header class="title drag-handle">
+                <t t-esc="props.title || 'Delivery Details'"/>
+            </header>
+            <main class="body">
+                <div>
+                    <div>
+                        <label>Delivery Country:</label>
+                        <select name="delivery_country" t-model="changes.delivery_country" id="delivery_country_name">
+                            <option value="">Select a country</option>
+                            <t t-foreach="env.pos.countries" t-as="country" t-key="country.id">
+                                <option t-att-value="country.id">
+                                    <t t-esc="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <br/>
+                    <div>
+                        <label>Delivery Type:</label>
+                        <select name="delivery_type" t-model="changes.delivery_type" id="delivery_type">
+                            <option value="">Select</option>
+                            <option value="domestic">Domestic</option>
+                             <option value="international">International</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <div>
+                        <label for="expected_delivery_date">Expected Delivery Date:</label>
+                        <input type="date" id="delivery_date"  t-model="changes.expected_delivery_date" required="1"/>
+                    </div>
+                </div>
+            </main>
+            <footer class="footer">
+                <div class="button confirm">
+                    <button t-on-click="confirm">Confirm</button>
+
+                </div>
+                <div class="button cancel">
+                    <button t-on-click="cancel">Cancel</button>
+                </div>
+            </footer>
+        </div>
+    </t>
+</templates>
+

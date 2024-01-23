@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="DeliveryDetailButton" owl="1">
+        <div class="control-button">
+            Delivery Details
+        </div>
+    </t>
+</templates>

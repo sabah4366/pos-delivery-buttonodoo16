@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_so_form_inherit" model="ir.ui.view">
+		<field name="name">pos.order.inherit</field>
+		<field name="model">pos.order</field>
+		<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="Delivery Details" >
+					<form >
+						  <group>
+							  <field name="delivery_country_related" readonly="1"/>
+							   <field name="delivery_type_related" readonly="1"/>
+							   <field name="expected_delivery_date_related" readonly="1"/>
+						  </group>
+
+					</form>
+				</page>
+			</notebook>
+
+
+
+
+		</field>
+	</record>
+</odoo>

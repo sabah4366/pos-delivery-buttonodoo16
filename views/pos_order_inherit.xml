@@ -9,9 +9,9 @@
 				<page string="Delivery Details" >
 					<form >
 						  <group>
-							  <field name="delivery_country_related" readonly="1"/>
-							   <field name="delivery_type_related" readonly="1"/>
-							   <field name="expected_delivery_date_related" readonly="1"/>
+							  <field name="pos_country" readonly="1"/>
+							   <field name="pos_delivery_type" readonly="1"/>
+							   <field name="exp_delivery_date" readonly="1"/>
 						  </group>
 
 					</form>

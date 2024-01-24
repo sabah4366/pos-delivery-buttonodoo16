@@ -22,7 +22,7 @@ odoo.define('pos_screen.popup', function (require) {
         async confirm() {
             await super.confirm()
             var self = this;
-            const selectedOrderline = this.env.pos.get_order().get_selected_orderline();
+            const selectedOrderline = this.env.pos.get_order();
 
             var delivery_type_fld = document.getElementById("delivery_type");
             var delivery_date_fld = document.getElementById("delivery_date");
@@ -35,15 +35,6 @@ odoo.define('pos_screen.popup', function (require) {
             const value = this.env.pos.get_order()
 
 
-
-            //Extract data from popup
-//            const { delivery_country , delivery_type , expected_delivery_date} = this.changes;
-            //save data to local storage
-//            localStorage.setItem('deliveryDetails',JSON.stringify({
-//                delivery_country,
-//                delivery_type,
-//                expected_delivery_date
-//            }));
 
 
 

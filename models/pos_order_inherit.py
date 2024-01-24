@@ -5,30 +5,28 @@ class CustomPosOrder(models.Model):
 
 
     # Add your custom fields here
-    delivery_country_related = fields.Many2one( string='Delivery Country' ,comodel_name='res.country', compute='_compute_delivery_country' )
-    delivery_type_related = fields.Selection([
+    pos_country = fields.Many2one( string='Delivery Country' ,comodel_name='res.country' )
+    pos_delivery_type = fields.Selection([
         ('domestic', 'Domestic'),
         ('international', 'International'),
-    ], string='Delivery Type',related='lines.delivery_type')
-    expected_delivery_date_related = fields.Date('Expected Delivery Date',related='lines.expected_delivery_date')
+    ], string='Delivery Type')
+    exp_delivery_date = fields.Date('Expected Delivery Date')
     card_number = fields.Char('Card Number')
     expiry_date = fields.Date('Expiry Date')
 
-    @api.depends('lines')
-    def _compute_delivery_country(self):
-        for rec in self:
-           if rec.lines:
-               for line in rec.lines:
-                   country = line.delivery_country.id
-               rec.delivery_country_related = country
+    @api.model
+    def _order_fields(self, ui_order):
+        res = super(CustomPosOrder, self)._order_fields(ui_order)
+        CustomPosOrder.exp_delivery_date = ui_order.get('exp_delivery_date')
+        CustomPosOrder.pos_delivery_type = ui_order.get('pos_delivery_type')
+        CustomPosOrder.pos_country = int(ui_order.get('pos_country'))
 
+        return res
 
-class PosOrderLineInherit(models.Model):
-    _inherit = 'pos.order.line'
-
-    delivery_country = fields.Many2one('res.country' ,string='Delivery Country')
-    delivery_type = fields.Selection([
-        ('domestic', 'Domestic'),
-        ('international', 'International'),
-        ], string='Delivery Type')
-    expected_delivery_date = fields.Date('Expected Delivery Date')
+    @api.model
+    def create(self, vals):
+        res = super(CustomPosOrder, self).create(vals)
+        res['exp_delivery_date'] =  CustomPosOrder.exp_delivery_date
+        res['pos_delivery_type'] =  CustomPosOrder.pos_delivery_type
+        res['pos_country'] =   CustomPosOrder.pos_country
+        return res
